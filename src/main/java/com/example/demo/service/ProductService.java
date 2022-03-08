@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProductService {
-    Logger logger =
     private ProductRepository productRepository;
 
     public ProductService(ProductRepository productRepository) {
