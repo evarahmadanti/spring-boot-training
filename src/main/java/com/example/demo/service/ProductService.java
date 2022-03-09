@@ -6,8 +6,6 @@ import com.example.demo.entity.ProductEntity;
 import com.example.demo.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -38,15 +36,21 @@ public class ProductService {
 
     public List<ProductEntity> fetch(boolean isInStock){
         if (isInStock) {
-            // fetch all products with stock > 0
-            return fetchAllInStock();
+            return fetchAllIsInStock();
         } else {
-            // fetch all
             return fetchAll();
         }
     }
 
-    public List<ProductEntity> fetchAllInStock(){
+    public List<ProductEntity> fetchFilter(long maxPrice){
+        return fetchAllIsUnderPrice(maxPrice);
+    }
+
+    public List<ProductEntity> fetchAllIsUnderPrice( long maxPrice){
+        return productRepository.findByPriceLessThanEqual(maxPrice);
+    }
+
+    public List<ProductEntity> fetchAllIsInStock(){
         return productRepository.findByStockGreaterThan(10);
     }
 
@@ -64,7 +68,7 @@ public class ProductService {
 
         // update stock
         long currentStock = product.getStock();
-        long updatedStock = currentStock = currentStock + request.getNumberOfStock();
+        long updatedStock = currentStock + request.getNumberOfStock();
         product.setStock(updatedStock);
 
         // save updated data to DB

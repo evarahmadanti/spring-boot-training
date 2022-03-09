@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 import com.example.demo.dto.CommonResponse;
 import com.example.demo.dto.ProductDto;
+import com.example.demo.dto.StaffDto;
 import com.example.demo.dto.UpdateStockDto;
 import com.example.demo.entity.ProductEntity;
+import com.example.demo.entity.StaffEntity;
 import com.example.demo.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +19,6 @@ public class ProductController {
         this.productService = productService;
     }
 
-
     @GetMapping("")
     public List<ProductEntity> getProducts(@RequestParam(value = "inStock", defaultValue = "0") boolean isInStock) {
         //TODO: Add code to get all product list here
@@ -30,6 +31,11 @@ public class ProductController {
         return productService.getById(Long.parseLong(id));
     }
 
+    @GetMapping("/price-filter")
+    public List<ProductEntity> priceFilter(@RequestParam(value = "maxPrice", defaultValue = "0") long maxPrice) {
+        //TODO: Add code to get all product list here
+        return productService.fetchFilter(maxPrice);
+    }
     @PostMapping("")
     public ProductEntity addProduct(@RequestBody ProductDto productDto) {
         //TODO: Add code to post here
