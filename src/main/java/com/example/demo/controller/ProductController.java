@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 import com.example.demo.dto.CommonResponse;
+import com.example.demo.dto.Hello;
 import com.example.demo.dto.ProductDto;
 import com.example.demo.dto.UpdateStockDto;
 import com.example.demo.entity.ProductEntity;
@@ -19,9 +20,9 @@ public class ProductController {
 
 
     @GetMapping("")
-    public List<ProductEntity> getProducts(@RequestParam(value = "inStock", defaultValue = "0") boolean isInStock) {
+    public List<ProductEntity> getProducts(@RequestParam(value = "maxPrice", defaultValue = "0") long maxPrice) {
         //TODO: Add code to get all product list here
-        return productService.fetch(isInStock);
+        return productService.fetch(maxPrice);
     }
 
     @GetMapping("{id}")
