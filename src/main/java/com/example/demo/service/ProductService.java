@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.ProductDto;
+import com.example.demo.dto.UpdateStockDto;
 import com.example.demo.entity.ProductEntity;
 import com.example.demo.repository.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,22 @@ public class ProductService {
 
     public void delete(long id) {
         productRepository.deleteById(id);
+    }
+
+    public ProductEntity getById(long id) {
+        return productRepository.findById(id).orElse(new ProductEntity());
+    }
+
+    public ProductEntity updateStock(UpdateStockDto request) {
+        // get product by id in DB
+        ProductEntity product = getById((request.getId()));
+
+        // update stock
+        long currentStock = product.getStock();
+        long updatedStock = currentStock = currentStock + request.getNumberOfStock();
+        product.setStock(updatedStock);
+
+        // save updated data to DB
+        return productRepository.save(product);
     }
 }

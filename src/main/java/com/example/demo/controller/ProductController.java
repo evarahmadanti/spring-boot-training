@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 import com.example.demo.dto.CommonResponse;
 import com.example.demo.dto.ProductDto;
+import com.example.demo.dto.UpdateStockDto;
 import com.example.demo.entity.ProductEntity;
 import com.example.demo.service.ProductService;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +25,9 @@ public class ProductController {
     }
 
     @GetMapping("{id}")
-    public CommonResponse getProduct(@PathVariable("id") String id) {
+    public ProductEntity getProduct(@PathVariable("id") String id) {
         //TODO: Add code to get product here
-        return new CommonResponse("Dummy Product");
+        return productService.getById(Long.parseLong(id));
     }
 
     @PostMapping("")
@@ -36,10 +37,9 @@ public class ProductController {
     }
 
     @PutMapping("/stock")
-    public CommonResponse updateStock(@RequestBody ProductDto productDto) {
+    public ProductEntity updateStock(@RequestBody UpdateStockDto request) {
         //TODO: Add code to post here
-        productService.add(productDto);
-        return new CommonResponse("Successfully update stock");
+        return productService.updateStock(request);
     }
 
     @DeleteMapping("{id}")
