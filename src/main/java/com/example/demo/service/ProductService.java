@@ -36,6 +36,20 @@ public class ProductService {
         // Find All balikannya itu iterable
     }
 
+    public List<ProductEntity> fetch(boolean isInStock){
+        if (isInStock) {
+            // fetch all products with stock > 0
+            return fetchAllInStock();
+        } else {
+            // fetch all
+            return fetchAll();
+        }
+    }
+
+    public List<ProductEntity> fetchAllInStock(){
+        return productRepository.findByStockGreaterThan(10);
+    }
+
     public void delete(long id) {
         productRepository.deleteById(id);
     }

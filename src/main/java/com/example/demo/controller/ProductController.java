@@ -19,9 +19,9 @@ public class ProductController {
 
 
     @GetMapping("")
-    public List<ProductEntity> getProducts() {
+    public List<ProductEntity> getProducts(@RequestParam(value = "inStock", defaultValue = "0") boolean isInStock) {
         //TODO: Add code to get all product list here
-        return productService.fetchAll();
+        return productService.fetch(isInStock);
     }
 
     @GetMapping("{id}")
