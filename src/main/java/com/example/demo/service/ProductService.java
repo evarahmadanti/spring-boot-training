@@ -68,7 +68,7 @@ public class ProductService {
 
         // update stock
         long currentStock = product.getStock();
-        long updatedStock = currentStock = currentStock + request.getNumberOfStock();
+        long updatedStock = currentStock + request.getNumberOfStock();
         product.setStock(updatedStock);
 
         // save updated data to DB

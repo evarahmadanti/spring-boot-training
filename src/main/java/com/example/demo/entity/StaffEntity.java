@@ -8,17 +8,17 @@ import javax.persistence.Id;
 public class StaffEntity {
     @Id
     @GeneratedValue
-    private long id;
+    private long ids;
     private String staffName;
     private String position;
     private long balance;
 
     public long getIds() {
-        return id;
+        return ids;
     }
 
-    public void setIds(long id) {
-        this.id = id;
+    public void setIds(long ids) {
+        this.ids = ids;
     }
 
     public String getStaffName() {
