@@ -6,8 +6,6 @@ import com.example.demo.entity.ProductEntity;
 import com.example.demo.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -36,12 +34,24 @@ public class ProductService {
         // Find All balikannya itu iterable
     }
 
-    public List<ProductEntity> fetch(long maxPrice){
+    public List<ProductEntity> fetch(boolean isInStock){
+        if (isInStock) {
+            return fetchAllIsInStock();
+        } else {
+            return fetchAll();
+        }
+    }
+
+    public List<ProductEntity> fetchFilter(long maxPrice){
         return fetchAllIsUnderPrice(maxPrice);
     }
 
     public List<ProductEntity> fetchAllIsUnderPrice( long maxPrice){
         return productRepository.findByPriceLessThanEqual(maxPrice);
+    }
+
+    public List<ProductEntity> fetchAllIsInStock(){
+        return productRepository.findByStockGreaterThan(10);
     }
 
     public void delete(long id) {
